@@ -2,7 +2,8 @@
     <div class="wrap-checkbox">
         <input
             type="checkbox" id="styled-checkbox-1"
-            :value="value" v-model="proxyChecked">
+            :value="value"
+            v-model="proxyChecked">
         <label for="styled-checkbox-1"><div>{{label}}</div></label>
     </div>
 </template>
@@ -13,11 +14,8 @@ export default {
     label: { type: String, required: true },
     checked: {
       type: [Array, Boolean],
-      default: false,
     },
-    value: {
-      default: null,
-    },
+    value: [Array, Boolean],
   },
   computed: {
     proxyChecked: {

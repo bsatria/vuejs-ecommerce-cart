@@ -6,10 +6,12 @@
           :qty="item.quantity"
           :courir="item.courir"
           :payment-method="item.paymentMethod"
+          :isShipment="true"
           :akumulate="akumulate"
           :dropship-fee="item.dropshipFee"
           :courir-fee="item.courirFee"
           :total="totalPrice"
+          :hideButton="true"
         />
     </div>
   </div>

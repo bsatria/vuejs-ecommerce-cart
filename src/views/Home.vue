@@ -10,6 +10,8 @@
           :akumulate="akumulate"
           :dropship-fee="item.dropshipFee"
           :courir-fee="item.courirFee"
+          :onclick="test"
+          textButton="Continue to payment"
           :total="totalPrice"
         />
     </div>
@@ -28,13 +30,16 @@ export default {
     Delivery,
     Summary,
   },
+  props: {
+    onclick: Function,
+  },
   computed: {
     ...mapState(['item']),
     akumulate() {
       return this.akumulateItem();
     },
     totalPrice() {
-      return this.akumulateItem() + this.item.dropshipFee + this.item.courirFee;
+      return this.akumulateItem() + this.item.dropshipFee;
     },
   },
   mounted() {
@@ -45,7 +50,6 @@ export default {
       return this.item.quantity * this.item.price;
     },
     test() {
-      this.$store.dispatch('testASD');
       console.log('object');
     },
   },

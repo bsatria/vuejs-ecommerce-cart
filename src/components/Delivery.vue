@@ -4,17 +4,20 @@
       <h1>{{ msg }}</h1>
       <Checkbox
         label="Send as dropshipper"
-        v-model="isDropshipper"/>
+        :checked="item.isDropshipper"
+        :value="item.isDropshipper"
+        v-model="item.isDropshipper"/>
     </div>
     <div class="delivery__wrap-form">
       <Input
         type="text"
         placeholder="ex bagassatria040@gmail.com"
-        v-model="isDropshipper"
+        v-model="item.isDropshipper"
         label="Email"/>
       <Input
         type="text"
         placeholder="bagas"
+        :disable="!item.isDropshipper"
         label="Dropshipper Name"/>
       <Input
         type="number"
@@ -23,29 +26,30 @@
       <Input
         type="number"
         placeholder="0823123123"
+        :disable="!item.isDropshipper"
         label="Dropshipper Phone Number"/>
       <TextArea
-        v-model="isDropshipper"
+        v-model="item.isDropshipper"
         label="Delivery Address"/>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
 
 export default {
   name: 'Delivery',
   props: {
     msg: String,
   },
-  data() {
-    return {
-      isDropshipper: true,
-    };
+  computed: {
+    ...mapState(['item']),
   },
   watch: {
-    isDropshipper(val) {
-      console.log(val);
+    // eslint-disable-next-line func-names
+    'item.isDropshipper': function (val) {
+      this.$store.dispatch('actionIsDropshipper', val);
     },
   },
 };

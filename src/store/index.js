@@ -8,6 +8,7 @@ const store = createStore({
       courir: 'BOJEK',
       paymentMethod: 'e-Money',
       price: 50000,
+      isDropshipper: false,
       dropshipFee: 5900,
       courirFee: 15000,
     },
@@ -22,13 +23,13 @@ const store = createStore({
     },
   },
   mutations: {
-    testASD(state) {
-      state.item.price += 1;
+    actionIsDropshipper(state, val) {
+      state.item.isDropshipper = val;
     },
   },
   actions: {
-    testASD({ commit }, message) {
-      commit('testASD', message);
+    actionIsDropshipper({ commit }, val) {
+      commit('actionIsDropshipper', val);
     },
   },
   modules: {

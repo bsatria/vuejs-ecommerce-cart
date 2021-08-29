@@ -54,20 +54,8 @@ input:focus
 
 label
 {
-  color:#999;
-  font-size:18px;
   font-weight:normal;
   position:absolute;
-  pointer-events:none;
-  left:5px;
-  top:10px;
-  transition:0.2s ease all;
-  -moz-transition:0.2s ease all;
-  -webkit-transition:0.2s ease all;
-}
-
-input:focus ~ label, input:valid ~ label
-{
   font-size:14px;
   color:#999999;
   top:-20px;

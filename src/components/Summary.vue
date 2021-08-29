@@ -4,11 +4,11 @@
           <h3>Summary</h3>
           <div class="desc">{{qty}} Items purchased</div>
         </div>
-        <div class="summary__delivery-section" style="margin-bottom:30px;">
+        <div class="summary__delivery-section" style="margin-bottom:30px;"  v-if="isShipment">
           <div class="desc">Delivery estimation</div>
           <div class="b-desc">today by {{courir}}</div>
         </div>
-        <div class="summary__delivery-section">
+        <div class="summary__delivery-section" v-if="isShipment">
           <div class="desc">Payment method</div>
           <div class="b-desc">{{paymentMethod}}</div>
         </div>
@@ -20,7 +20,7 @@
           <div class="desc">Dropshipping Fee</div>
           <div class="bold">{{dropshipFee}}</div>
         </div>
-        <div class="summary__end-section">
+        <div class="summary__end-section"  v-if="isShipment">
           <div class="desc">{{courir}} shipment</div>
           <div class="bold">{{courirFee}}</div>
         </div>
@@ -28,6 +28,11 @@
           <h3>Total</h3>
           <h3>{{ total }}</h3>
         </div>
+        <Button
+          v-if="!hideButton"
+          :text="textButton"
+          :onclick="test"
+        />
     </div>
 </template>
 
@@ -36,10 +41,13 @@ export default {
   props: {
     courir: { type: String, default: '' },
     paymentMethod: { type: String, default: '' },
+    textButton: { type: String, default: '' },
     akumulate: { type: Number, default: 0 },
     dropshipFee: { type: Number, default: 0 },
     courirFee: { type: Number, default: 0 },
     total: { type: Number, default: 0 },
+    isShipment: { type: Boolean, default: false },
+    hideButton: { type: Boolean, default: false },
     qty: { type: Number, default: 0 },
   },
   data() {

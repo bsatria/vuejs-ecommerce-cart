@@ -8,6 +8,7 @@ import Checkbox from '@/components/Checkbox.vue';
 import Input from '@/components/Input.vue';
 import TextArea from '@/components/TextArea.vue';
 import Stepper from '@/components/Stepper.vue';
+import Button from '@/components/Button.vue';
 
 createApp(App)
   .component('BackButton', BackButton)
@@ -15,6 +16,7 @@ createApp(App)
   .component('Input', Input)
   .component('TextArea', TextArea)
   .component('Stepper', Stepper)
+  .component('Button', Button)
   .use(store)
   .use(router)
   .mount('#app');

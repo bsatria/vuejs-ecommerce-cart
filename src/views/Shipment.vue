@@ -6,11 +6,13 @@
       <Summary
           :qty="item.quantity"
           :courir="item.courir"
+          :isShipment="true"
           :payment-method="item.paymentMethod"
           :akumulate="akumulate"
           :dropship-fee="item.dropshipFee"
           :courir-fee="item.courirFee"
           :total="totalPrice"
+          :textButton="`Payment with ${item.paymentMethod}`"
         />
     </div>
   </div>

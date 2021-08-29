@@ -23,7 +23,7 @@ export default {
   },
   computed: {
     currentTabComponent() {
-      return this.$route.path;
+      return this.$route.path.toLowerCase();
     },
   },
 };

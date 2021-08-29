@@ -1,18 +1,19 @@
 <template>
   <div class="shipment">
-    <BackButton text="Back to delivery" :onclick="test"/>
+    <BackButton text="Back to delivery" :onclick="redirect"/>
     <div class="wrap-shipment">
-      <Shipment msg="Shipment"/>
+      <Shipment msg="Shipment" msg2="Payment"/>
       <Summary
           :qty="item.quantity"
-          :courir="item.courir"
+          :courir="shipment.name"
           :isShipment="true"
-          :payment-method="item.paymentMethod"
+          :onclickbutton="submitForm"
+          :payment-method="payment.name"
           :akumulate="akumulate"
-          :dropship-fee="item.dropshipFee"
-          :courir-fee="item.courirFee"
+          :dropship-fee="item.isDropshipper ? item.dropshipFee : 0"
+          :courir-fee="shipment.value"
           :total="totalPrice"
-          :textButton="`Payment with ${item.paymentMethod}`"
+          :textButton="`Payment with ${payment.name}`"
         />
     </div>
   </div>
@@ -32,23 +33,28 @@ export default {
   },
   computed: {
     ...mapState(['item']),
+    ...mapState(['shipment']),
+    ...mapState(['payment']),
+
     akumulate() {
       return this.akumulateItem();
     },
     totalPrice() {
-      return this.akumulateItem() + this.item.dropshipFee + this.item.courirFee;
+      if (this.item.isDropshipper) {
+        return this.akumulateItem() + this.item.dropshipFee + this.shipment.value;
+      }
+      return this.akumulateItem() + this.shipment.value;
     },
-  },
-  mounted() {
-    console.log();
   },
   methods: {
     akumulateItem() {
       return this.item.quantity * this.item.price;
     },
-    test() {
-      this.$store.dispatch('testASD');
-      console.log('object');
+    redirect() {
+      this.$router.push('/');
+    },
+    submitForm() {
+      this.$router.push('Thanks');
     },
   },
 };

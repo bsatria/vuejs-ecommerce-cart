@@ -1,16 +1,16 @@
 <template>
   <div class="home">
-    <BackButton text="Back to cart" :onclick="test"/>
+    <BackButton text="Back to cart"/>
     <div class="wrap-delivery">
-      <Delivery msg="Delivery details"/>
+      <Delivery ref="deliveryDetail" msg="Delivery details"/>
       <Summary
           :qty="item.quantity"
           :courir="item.courir"
           :payment-method="item.paymentMethod"
           :akumulate="akumulate"
-          :dropship-fee="item.dropshipFee"
+          :dropship-fee="item.isDropshipper ? item.dropshipFee : 0"
           :courir-fee="item.courirFee"
-          :onclick="test"
+          :onclickbutton="submitForm"
           textButton="Continue to payment"
           :total="totalPrice"
         />
@@ -39,7 +39,10 @@ export default {
       return this.akumulateItem();
     },
     totalPrice() {
-      return this.akumulateItem() + this.item.dropshipFee;
+      if (this.item.isDropshipper) {
+        return this.akumulateItem() + this.item.dropshipFee;
+      }
+      return this.akumulateItem();
     },
   },
   mounted() {
@@ -49,8 +52,8 @@ export default {
     akumulateItem() {
       return this.item.quantity * this.item.price;
     },
-    test() {
-      console.log('object');
+    submitForm() {
+      this.$refs.deliveryDetail.submitForm();
     },
   },
 };

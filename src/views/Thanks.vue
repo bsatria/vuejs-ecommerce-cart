@@ -1,15 +1,15 @@
 <template>
   <div class="thanks">
     <div class="wrap-thanks">
-      <Thanks msg="Thanks"/>
+      <Thanks msg="Thank you"/>
       <Summary
           :qty="item.quantity"
-          :courir="item.courir"
-          :payment-method="item.paymentMethod"
+          :courir="shipment.name"
           :isShipment="true"
+          :payment-method="payment.name"
           :akumulate="akumulate"
-          :dropship-fee="item.dropshipFee"
-          :courir-fee="item.courirFee"
+          :dropship-fee="item.isDropshipper ? item.dropshipFee : 0"
+          :courir-fee="shipment.value"
           :total="totalPrice"
           :hideButton="true"
         />
@@ -31,11 +31,17 @@ export default {
   },
   computed: {
     ...mapState(['item']),
+    ...mapState(['shipment']),
+    ...mapState(['payment']),
+
     akumulate() {
       return this.akumulateItem();
     },
     totalPrice() {
-      return this.akumulateItem() + this.item.dropshipFee + this.item.courirFee;
+      if (this.item.isDropshipper) {
+        return this.akumulateItem() + this.item.dropshipFee + this.shipment.value;
+      }
+      return this.akumulateItem() + this.shipment.value;
     },
   },
   mounted() {

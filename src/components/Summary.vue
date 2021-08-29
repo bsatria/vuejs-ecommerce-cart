@@ -16,7 +16,7 @@
           <div class="desc">Cost of goods</div>
           <div class="bold">{{akumulate}}</div>
         </div>
-        <div class="summary__end-section">
+        <div class="summary__end-section" v-if="dropshipFee != 0">
           <div class="desc">Dropshipping Fee</div>
           <div class="bold">{{dropshipFee}}</div>
         </div>
@@ -31,7 +31,7 @@
         <Button
           v-if="!hideButton"
           :text="textButton"
-          :onclick="test"
+          :onclick="onclickbutton"
         />
     </div>
 </template>
@@ -48,6 +48,7 @@ export default {
     total: { type: Number, default: 0 },
     isShipment: { type: Boolean, default: false },
     hideButton: { type: Boolean, default: false },
+    onclickbutton: { type: Function },
     qty: { type: Number, default: 0 },
   },
   data() {

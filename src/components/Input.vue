@@ -3,11 +3,19 @@
       <input
         :type="type"
         :placeholder="placeholder"
-        @keyup="$emit('update:modelValue', $event.target.value)"
+        :value="value"
+        @keyup="$emit('update:modelValue', $event.target.value), onchange($event.target.value)"
+        :class="stateForm"
         :disabled="disable">
       <span class="b-input__highlight"></span>
       <span class="b-input__bar"></span>
-      <label id="mla">{{label}}</label>
+      <label id="mla" :class="stateForm">
+        {{label}}
+      </label>
+      <span class="b-input__error"
+        v-if="errorMessage != '' && errorMessage != 'correct' && !disable">
+        {{errorMessage}}
+      </span>
     </div>
 </template>
 
@@ -18,16 +26,37 @@ export default {
     type: { type: String, required: true },
     disable: { type: Boolean, default: false },
     placeholder: { type: String, required: true },
+    onchange: { type: Function },
+    errorMessage: { type: String, default: '' },
+    value: { type: String, default: '' },
+  },
+  computed: {
+    stateForm() {
+      if (this.errorMessage === 'correct') {
+        return 'input__correct';
+      }
+      if (this.errorMessage !== '' && !this.disable) {
+        return 'input__error';
+      }
+      return '';
+    },
   },
 };
 </script>
-
 <style scoped>
 .b-input
 {
   position: relative;
   margin-bottom:45px;
   margin-top: 12px;
+}
+
+.b-input__error{
+  color: #FF8A00;
+  font-size: 12px;
+  font-weight: bold;
+  position: absolute;
+  bottom: -20px;
 }
 
 input
@@ -40,6 +69,12 @@ input
   border:none;
   border:2px solid #CCCCCC;
   border-radius: 0px;
+}
+input.input__error{
+  border:2px solid #FF8A00;
+}
+input.input__correct{
+  border:2px solid #1BD97B;
 }
 
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
@@ -59,6 +94,10 @@ label
   font-size:14px;
   color:#999999;
   top:-20px;
+}
+
+label.input__error{
+  color:#FF8A00;
 }
 
 .b-input__bar

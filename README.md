@@ -1,5 +1,9 @@
 # ecommerse-step
 
+## Description
+
+build with VueJS, Vuex dan vuex-persistedstate
+
 ## Project setup
 ```
 npm install
